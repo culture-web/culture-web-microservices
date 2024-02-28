@@ -50,6 +50,8 @@ def classify():
     if image_file.filename == '':
         return jsonify({'error': 'no image found'})
     image = Image.open(image_file)
+    if image.mode != 'RGB':
+        image = image.convert('RGB')
     prediction = predict(image)
     return jsonify({'prediction': prediction})
 
