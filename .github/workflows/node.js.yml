@@ -21,7 +21,8 @@ jobs:
       - name: Loop through folders and build Docker images
         run: |
           for folder in microservices/*/; do
-            folder_name="${folder%/}"  # Remove trailing slash
+            folder_name="${folder#microservices/}"  # Remove "microservices/" from the beginning
+            folder_name="${folder_name%/}"  # Remove trailing slash
             docker build -t "culture4web/culture-web-microservices:${folder_name}_${{ github.event.inputs.image-tag }}" "$folder"
             docker push "culture4web/culture-web-microservices:${folder_name}_${{ github.event.inputs.image-tag }}"
           done
