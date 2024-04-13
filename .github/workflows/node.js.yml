@@ -1,0 +1,28 @@
+name: Build Image CI
+
+on:
+  workflow_dispatch:
+    inputs:
+      image-tag:
+        description: "Docker image tag"
+        required: true
+        default: "latest"
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Login to Docker registry
+        run: echo ${{ secrets.DOCKERHUB_TOKEN }} | docker login -u culture4web --password-stdin
+
+      - name: Loop through folders and build Docker images
+        run: |
+          for folder in microservices/*/; do
+            folder_name="${folder#microservices/}"  # Remove "microservices/" from the beginning
+            folder_name="${folder_name%/}"  # Remove trailing slash
+            docker build -t "culture4web/culture-web-microservices:${folder_name}_${{ github.event.inputs.image-tag }}" "$folder"
+            docker push "culture4web/culture-web-microservices:${folder_name}_${{ github.event.inputs.image-tag }}"
+          done
