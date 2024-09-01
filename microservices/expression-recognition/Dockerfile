@@ -10,7 +10,6 @@ COPY . .
 # Install any needed dependencies specified in requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
-RUN python model.py
 # Make port 5000 available to the world outside this container
 EXPOSE 5000
 
