@@ -15,8 +15,6 @@ RUN apt-get update && \
 
 # Install any needed dependencies specified in requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
-# Find versions 
-RUN pip install torch torchvision setuptools 
 
 RUN pip install git+https://github.com/hukkelas/DSFD-Pytorch-Inference.git
 
