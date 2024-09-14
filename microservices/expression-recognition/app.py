@@ -7,7 +7,7 @@ import numpy as np
 app = Flask(__name__)
 model = tensorflow.keras.models.load_model('./kathakali.h5')
 
-emotion = ['Anger', 'Love', 'Odious', 'Pitty',
+emotion = ['Anger', 'Love', 'Odious', 'Pity',
            'Terrible', 'Peace', 'Comic', 'Heroic', 'Wonder']
 
 
