@@ -1,4 +1,4 @@
-import face_detection
+from retinaface import RetinaFace
+import numpy as np
 
-detector = face_detection.build_detector(
-    "DSFDDetector", confidence_threshold=.5, nms_iou_threshold=.3)
+RetinaFace.detect_faces(np.zeros((256, 256, 3), dtype=np.uint8))
