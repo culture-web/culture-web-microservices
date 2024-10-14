@@ -7,16 +7,14 @@ WORKDIR .
 # Copy the current directory contents into the container at /app
 COPY . .
 
-RUN apt-get update && \
-    apt-get install -y \
+RUN apt-get update && apt-get install -y \
     libgl1-mesa-glx \
     libglib2.0-0 \
-    git
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 # Install any needed dependencies specified in requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
-
-RUN pip install git+https://github.com/hukkelas/DSFD-Pytorch-Inference.git
 
 RUN python model.py
 # Make port 5000 available to the world outside this container
